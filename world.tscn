@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdfh33o5mg732"]
+[gd_scene load_steps=10 format=3 uid="uid://bdfh33o5mg732"]
 
 [ext_resource type="Texture2D" uid="uid://f4phfwhhqryh" path="res://Assets/sprites/background-day.png" id="1_8oyqj"]
 [ext_resource type="PackedScene" uid="uid://bjf3hyrkyulrk" path="res://bird.tscn" id="1_10uw8"]
@@ -7,19 +7,14 @@
 [ext_resource type="PackedScene" uid="uid://fjh0vewo5d6q" path="res://hud.tscn" id="2_be21a"]
 [ext_resource type="Texture2D" uid="uid://bbj8bi8uykx1v" path="res://Assets/sprites/base.png" id="4_7j6am"]
 [ext_resource type="Script" path="res://Sprite2D.gd" id="5_fapeg"]
+[ext_resource type="Texture2D" uid="uid://c6bygi1b5dw48" path="res://Assets/sprites/message.png" id="8_wm6p0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3137e"]
 size = Vector2(336, 70)
 
 [node name="World" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_coo0k")
-
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="GameOverScreen" parent="UI" instance=ExtResource("2_3v1jh")]
-visible = false
-
-[node name="HUD" parent="UI" instance=ExtResource("2_be21a")]
 
 [node name="Background-day" type="Sprite2D" parent="."]
 position = Vector2(144, 264)
@@ -34,6 +29,7 @@ autostart = true
 position = Vector2(56, 240)
 
 [node name="Floor" type="StaticBody2D" parent="."]
+process_mode = 1
 position = Vector2(16, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Floor"]
@@ -46,5 +42,16 @@ script = ExtResource("5_fapeg")
 position = Vector2(136, 477)
 shape = SubResource("RectangleShape2D_3137e")
 metadata/_edit_lock_ = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UI" instance=ExtResource("2_be21a")]
+
+[node name="GameOverScreen" parent="UI" instance=ExtResource("2_3v1jh")]
+visible = false
+
+[node name="Start" type="Sprite2D" parent="."]
+position = Vector2(135, 192)
+texture = ExtResource("8_wm6p0")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

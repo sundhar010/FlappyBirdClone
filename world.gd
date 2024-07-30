@@ -9,22 +9,30 @@ var score = 0
 @onready var hud = $UI/HUD
 @onready var bird = $Bird
 @onready var gos = $UI/GameOverScreen
+@onready var start = $Start
 func _ready():
 	hud.score = 0
 	bird.died.connect(_on_player_died)
 	gos.visible = false
+	get_tree().paused = true
+	hud.visible = false
 
 func _on_player_died():
 	get_tree().paused = true
 	gos.set_score(score)
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(0.3).timeout
 	gos.visible = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	for i in world_pipes_pairs:
-		if i.position.x > - 40:
-			i.position.x -= delta * pipe_speed
+	if Input.is_action_just_pressed("ui_accept"):
+		get_tree().paused = false
+		hud.visible = true
+		start.visible = false
+	if not get_tree().paused:
+		for i in world_pipes_pairs:
+			if i.position.x > - 40:
+				i.position.x -= delta * pipe_speed
 
 func add_pipes_pair():
 	var i1 = pipes_pair.instantiate()

@@ -20,3 +20,4 @@ func set_score(value):
 
 func set_high_score(value):
 	$Panel/HighScore.text = "High Score: " + str(value)
+
