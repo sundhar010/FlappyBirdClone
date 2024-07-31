@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bdfh33o5mg732"]
+[gd_scene load_steps=12 format=3 uid="uid://bdfh33o5mg732"]
 
 [ext_resource type="Texture2D" uid="uid://f4phfwhhqryh" path="res://Assets/sprites/background-day.png" id="1_8oyqj"]
 [ext_resource type="PackedScene" uid="uid://bjf3hyrkyulrk" path="res://bird.tscn" id="1_10uw8"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://bbj8bi8uykx1v" path="res://Assets/sprites/base.png" id="4_7j6am"]
 [ext_resource type="Script" path="res://Sprite2D.gd" id="5_fapeg"]
 [ext_resource type="Texture2D" uid="uid://c6bygi1b5dw48" path="res://Assets/sprites/message.png" id="8_wm6p0"]
+[ext_resource type="AudioStream" uid="uid://chr561cjjmbhv" path="res://Assets/audio/hit.ogg" id="9_gmu3a"]
+[ext_resource type="AudioStream" uid="uid://bamni1qif14eh" path="res://Assets/audio/point.ogg" id="9_jrxpx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3137e"]
 size = Vector2(336, 70)
@@ -53,5 +55,17 @@ visible = false
 [node name="Start" type="Sprite2D" parent="."]
 position = Vector2(135, 192)
 texture = ExtResource("8_wm6p0")
+
+[node name="die" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(16, 0)
+stream = ExtResource("9_gmu3a")
+volume_db = -15.0
+pitch_scale = 1.3
+
+[node name="point" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(16, 0)
+stream = ExtResource("9_jrxpx")
+volume_db = -15.0
+pitch_scale = 2.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

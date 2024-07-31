@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bjf3hyrkyulrk"]
+[gd_scene load_steps=8 format=3 uid="uid://bjf3hyrkyulrk"]
 
 [ext_resource type="Texture2D" uid="uid://cq4m6lp7as1kp" path="res://Assets/sprites/bluebird-downflap.png" id="1_dhc0c"]
 [ext_resource type="Script" path="res://bird.gd" id="1_xsd5v"]
 [ext_resource type="Texture2D" uid="uid://00rbohuwibiw" path="res://Assets/sprites/bluebird-midflap.png" id="2_i6pk6"]
 [ext_resource type="Texture2D" uid="uid://c7jkjuwbpqkbp" path="res://Assets/sprites/bluebird-upflap.png" id="3_6nigu"]
+[ext_resource type="AudioStream" uid="uid://bb2apdkw0rrhp" path="res://Assets/audio/wing.ogg" id="5_hbioq"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4ixkn"]
 animations = [{
@@ -37,3 +38,7 @@ autoplay = "default"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2.08165e-12, 2.08165e-12)
 shape = SubResource("CircleShape2D_kvlv3")
+
+[node name="jump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_hbioq")
+volume_db = -10.0

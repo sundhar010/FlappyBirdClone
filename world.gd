@@ -10,6 +10,8 @@ var score = 0
 @onready var bird = $Bird
 @onready var gos = $UI/GameOverScreen
 @onready var start = $Start
+@onready var point_audio = $point
+@onready var die_audio = $die
 func _ready():
 	hud.score = 0
 	bird.died.connect(_on_player_died)
@@ -18,6 +20,7 @@ func _ready():
 	hud.visible = false
 
 func _on_player_died():
+	die_audio.play()
 	get_tree().paused = true
 	gos.set_score(score)
 	await get_tree().create_timer(0.3).timeout
@@ -25,7 +28,7 @@ func _on_player_died():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
+	if get_tree().paused and Input.is_action_just_pressed("ui_accept"):
 		get_tree().paused = false
 		hud.visible = true
 		start.visible = false
@@ -35,6 +38,8 @@ func _process(delta):
 				i.position.x -= delta * pipe_speed
 
 func add_pipes_pair():
+	if get_tree().paused:
+		return
 	var i1 = pipes_pair.instantiate()
 	i1.point.connect(increment_score)
 	add_child(i1)
@@ -46,6 +51,7 @@ func add_pipes_pair():
 func increment_score():
 	score += 1
 	hud.score = score
+	point_audio.play()
 
 func _on_timer_timeout():
 	print("timeout")

@@ -5,6 +5,8 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 const ROTATION_SPEED = 2
 
+@onready var jump_audio = $jump
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 signal died
 
@@ -12,6 +14,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	if Input.is_action_just_pressed("ui_accept"):
+		jump_audio.play()
 		velocity.y = JUMP_VELOCITY
 
 	if is_on_floor():
